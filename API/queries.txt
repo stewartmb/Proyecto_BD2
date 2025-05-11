@@ -1,0 +1,15 @@
+create table images (id int primary key index seq, name text index btree, creationDate date, features varchar[14] index rtree);
+
+copy Customer from "C:\empelados.csv";
+
+select * from Customer where DNI == 1234;
+
+select * from Customer where DNI > 1234;
+
+select * from Customer where DNI between 123 and 154;
+
+insert into Customer (id, name) values (1234, "hola");
+
+delete from Customer where DNI == 1234;
+
+create index on Customer using hash(DNI);
