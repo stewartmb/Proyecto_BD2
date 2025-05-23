@@ -11,3 +11,5 @@ insert into images (id, lat, long) values (3, 4.32, 5.423);
 select * from images where lat, long between [3, 5] and [3, 8];
 
 select * from images where lat, long in (2, 5) closest 4;
+
+create index on images using btree (3);

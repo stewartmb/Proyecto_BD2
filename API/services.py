@@ -144,23 +144,25 @@ def create_index(query):
     hash = None
     seq = None
     rtree = None
+    bptree = None
+    isam = None
 
+    heap = Heap(format,
+                data["key"],
+                table_filename(nombre_tabla))
+    
     index = query["index"]
-    if index == None:
-        pass
-    elif index == "hash":
+    if index == "hash":
         hash = Hash(format,
                     keys[0],
                     index_filename(nombre_tabla, keys[0], "buckets"),
                     index_filename(nombre_tabla, keys[0], "index"),
                     table_filename(nombre_tabla))
-
     elif index == "seq":
         seq = Sequential(format,
                     key,
                     index_filename(nombre_tabla, keys[0], "index"),
                     table_filename(nombre_tabla))
-    
     elif index == "rtree":
         rtree = Rtree(format, 
                         data["key"],
@@ -169,11 +171,21 @@ def create_index(query):
                         index_filename(nombre_tabla, *keys, "index"))
         if "indexes" not in data:
             data["indexes"] = {}
-
         data["indexes"]["rtree"] = keys
-    
     else:
         print("INDICE NO IMPLEMENTADO AUN")
-    
+
     create(data, nombre_tabla)
+
+    records = heap._select_all()
+
+    # añadir los registros ya en la tabla al indice creado
+    for record in records:
+        if hash is not None:
+            hash.insert(record)
+        elif seq is not None:
+            seq.add(record)
+        elif rtree is not None:
+            rtree.insert(record)
+    
     

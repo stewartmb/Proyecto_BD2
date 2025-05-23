@@ -34,10 +34,10 @@ def parse_sql_query(input: QueryInput):
 print("comenzar")
 
 consultas = ["", "", "", ""]
-# consultas[0]= "API/consultas/crear_tabla.txt"
-# consultas[1]= "API/consultas/crear_indice.txt"
-# consultas[2]= "API/consultas/insertar_datos.txt"
-consultas[3]= "API/consultas/select_datos.txt"
+consultas[0]= "API/consultas/crear_tabla.txt"
+consultas[1]= "API/consultas/crear_indice.txt"
+consultas[2]= "API/consultas/insertar_datos.txt"
+# consultas[3]= "API/consultas/select_datos.txt"
 
 
 for c in consultas:
